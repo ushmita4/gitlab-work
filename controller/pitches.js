@@ -69,7 +69,7 @@ export const makeOfferByInvestor = async (req, res) => {
 
     try {
          //this part can be cleared
-        if(newPitch.equity>100)
+        if(newOffer.equity>100)
         res.status(400).json({message:"Invalid Equity"})
         //this part can be cleared
         else{
