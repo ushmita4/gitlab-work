@@ -68,11 +68,8 @@ export const makeOfferByInvestor = async (req, res) => {
     const { id } = req.params;
 
     try {
-         //this part can be cleared
-        if(newOffer.equity>100)
-        res.status(400).json({message:"Invalid Equity"})
-        //this part can be cleared
-        else{
+        
+        
         const pitch = await Pitch.findById(id);
         
          
@@ -84,6 +81,11 @@ export const makeOfferByInvestor = async (req, res) => {
 
         const offer = req.body;
         const newOffer = new Investor({ ...offer, createdAt: new Date().toISOString() });
+         //this part can be cleared
+        if(newOffer.equity>100)
+        res.status(400).json({message:"Invalid Equity"})
+        //this part can be cleared
+        else{
         await newOffer.save();
         pitch.offers.push(newOffer);
         pitch.save();
@@ -91,6 +93,7 @@ export const makeOfferByInvestor = async (req, res) => {
             id: newOffer._id,
         });
         }
+        
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
