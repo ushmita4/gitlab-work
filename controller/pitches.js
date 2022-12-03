@@ -8,10 +8,20 @@ export const createPost = async (req, res) => {
     const newPitch = new Pitch({ ...pitch, createdAt: new Date().toISOString() });
 //this is the try block
     try {
+        //this part can be cleared
+        if(newPitch.equity>100)
+        res.status(400).json({message:"Invalid Equity"})
+        //this part can be cleared
+        else{
         await newPitch.save();
+       //database cleared
+       
+        
         res.status(200).json({
             id: newPitch._id,
         });
+        }
+        
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -52,12 +62,20 @@ export const getOnePitch = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 };
-
+//this part can be cleared
+        
 export const makeOfferByInvestor = async (req, res) => {
     const { id } = req.params;
 
     try {
+         //this part can be cleared
+        if(newPitch.equity>100)
+        res.status(400).json({message:"Invalid Equity"})
+        //this part can be cleared
+        else{
         const pitch = await Pitch.findById(id);
+        
+         
         if (!pitch) {
             return res.status(404).json({
                 message: 'Pitch not found',
@@ -72,10 +90,11 @@ export const makeOfferByInvestor = async (req, res) => {
         res.status(200).json({
             id: newOffer._id,
         });
-
+        }
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
+        
 
 
